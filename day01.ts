@@ -5,9 +5,8 @@ async function solvePartOne() {
   let left: number[] = [],
     right: number[] = []
 
-  let l, r: string
   for (const line of lines) {
-    ;[l, r] = line.split(/\s+/)
+    const [l, r] = line.split(/\s+/)
     left.push(+l)
     right.push(+r)
   }
@@ -23,5 +22,30 @@ async function solvePartOne() {
   return distances
 }
 
-const partOne = await solvePartOne()
-console.log(partOne)
+async function solvePartTwo() {
+  const input = await Deno.readTextFile(`${Deno.cwd()}/input.txt`)
+  const lines = input.split("\n")
+
+  const left: number[] = [],
+    right: number[] = []
+  for (const line of lines) {
+    const [l, r] = line.split(/\s+/)
+    left.push(+l)
+    right.push(+r)
+  }
+
+  let similarities = 0,
+    tmp = 0
+
+  for (let i = 0; i < left.length; i++) {
+    for (let j = 0; j < right.length; j++) {
+      if (left[i] === right[j]) {
+        tmp++
+      }
+    }
+    similarities += left[i] * tmp
+    tmp = 0
+  }
+
+  return similarities
+}
