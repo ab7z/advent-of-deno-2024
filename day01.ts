@@ -1,14 +1,16 @@
-async function solvePartOne() {
-  const input = await Deno.readTextFile(`${Deno.cwd()}/input.txt`)
-  const lines = input.split("\n")
+import { readLines } from "./utils.ts"
 
+async function solvePartOne() {
   let left: number[] = [],
     right: number[] = []
 
-  for (const line of lines) {
-    const [l, r] = line.split(/\s+/)
-    left.push(+l)
-    right.push(+r)
+  const lines = await readLines(`${Deno.cwd()}/input.txt`)
+
+  let l = []
+  for await (const line of lines) {
+    l = line.split(/\s+/)
+    left.push(+l[0])
+    right.push(+l[1])
   }
 
   left = left.toSorted()
@@ -23,12 +25,11 @@ async function solvePartOne() {
 }
 
 async function solvePartTwo() {
-  const input = await Deno.readTextFile(`${Deno.cwd()}/input.txt`)
-  const lines = input.split("\n")
-
   const left: number[] = [],
     right: number[] = []
-  for (const line of lines) {
+
+  const lines = await readLines(`${Deno.cwd()}/input.txt`)
+  for await (const line of lines) {
     const [l, r] = line.split(/\s+/)
     left.push(+l)
     right.push(+r)
