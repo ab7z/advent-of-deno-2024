@@ -1,5 +1,7 @@
-async function solvePartOne() {
-  const file = await Deno.readTextFile(`${Deno.cwd()}/input.txt`);
+import {ReadFile} from "../utils.ts";
+
+export async function solvePartOne() {
+  const file = await ReadFile(1);
   const lines = file.split("\n");
 
   const left: number[] = [],
@@ -23,8 +25,8 @@ async function solvePartOne() {
   return distances;
 }
 
-async function solvePartTwo() {
-  const file = await Deno.readTextFile(`${Deno.cwd()}/input.txt`);
+export async function solvePartTwo() {
+  const file = await ReadFile(1);
   const lines = file.split("\n");
 
   const left: number[] = [],
@@ -39,7 +41,7 @@ async function solvePartTwo() {
 
   const rightFrequency = new Map();
   for (const value of right) {
-    rightFrequency.set(value, (rightFrequency.get(value) || 0) + 1);
+    rightFrequency.set(value, (rightFrequency.get(value) ?? 0) + 1);
   }
 
   let similarities = 0;
@@ -51,7 +53,3 @@ async function solvePartTwo() {
 
   return similarities;
 }
-
-const t = performance.now();
-const r = await solvePartTwo();
-console.log(performance.now() - t, r);
